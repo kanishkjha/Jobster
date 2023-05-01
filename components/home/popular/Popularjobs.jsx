@@ -8,10 +8,35 @@ import PopularJobCard from "../../../components/common/cards/popular/PopularJobC
 
 const Popularjobs = () => {
   const router = useRouter()
+  const isLaoding = false
+  const error = false
 
   return (
-    <View>
-      <Text>Popularjobs</Text>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Popular jobs</Text>
+        <TouchableOpacity>
+          <Text style={styles.headerBtn}>Show all</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.cardsContainer}>
+        {isLoading ? (
+          <ActivityIndicator size="large" colors={COLORS.primary}></ActivityIndicator>
+        ) : error ? (<>
+          <Text>Something went wrong</Text></>) :
+          (
+            <FlatList data={[1, 2, 3, 4]}
+              renderItem={({ item }) => (
+                <PupularJobCard item={item} />
+
+              )
+              }
+              keyExtractor={item => item?.job_id}
+              contentContainerStyle={{ columnGap: SIZES.small }}
+              horizontal
+            />
+          )}
+      </View>
     </View>
   )
 }
